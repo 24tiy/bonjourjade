@@ -4,12 +4,19 @@
   <meta charset="UTF-8" />
   <title>Bonjour Sasha</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Милый шрифт под Barbie-стиль -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --barbie-pink: #ff4fa3;
-      --barbie-pink-dark: #e23f90;
-      --bg: #ffe9f5;
-      --text-dark: #3a243f;
+      --barbie-pink-light: #ff8fd0;
+      --barbie-pink-dark: #e12586;
+      --bg-1: #ffe5f5;
+      --bg-2: #ffd3f2;
+      --bg-3: #fff0fb;
+      --card-bg: rgba(255, 255, 255, 0.92);
       --white: #ffffff;
     }
 
@@ -20,151 +27,311 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
       min-height: 100vh;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at top, #fff4fb 0, var(--bg) 40%, #ffd2ee 100%);
-      color: var(--text-dark);
+      font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, #fff7ff 0, var(--bg-1) 35%, transparent 60%),
+        radial-gradient(circle at top right, #ffe9ff 0, var(--bg-2) 35%, transparent 60%),
+        radial-gradient(circle at bottom, #ffe0f7 0, var(--bg-3) 50%, #ffc1ec 100%);
+      color: #3a243f;
     }
 
     .app {
-      text-align: center;
-      padding: 32px 24px;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 18px 30px rgba(255, 79, 163, 0.3);
-      max-width: 420px;
+      position: relative;
+      z-index: 2;
+      max-width: 480px;
       width: 100%;
+      padding: 32px 24px 28px;
+      border-radius: 28px;
+      background: var(--card-bg);
+      box-shadow:
+        0 22px 40px rgba(225, 37, 134, 0.35),
+        0 0 0 3px rgba(255, 255, 255, 0.9);
+      text-align: center;
+      backdrop-filter: blur(10px);
     }
 
+    .title {
+      font-family: "Pacifico", cursive;
+      font-size: 2.1rem;
+      color: var(--barbie-pink-dark);
+      text-shadow: 0 2px 0 #ffe7f6;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #7c4a7f;
+      margin-bottom: 22px;
+    }
+
+    /* Блок с фото и "Bonjour Jade" */
     .hello-block {
       margin-bottom: 24px;
       opacity: 0;
+      transform: translateY(-14px) scale(0.96);
       pointer-events: none;
-      transform: translateY(-8px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition:
+        opacity 0.4s ease,
+        transform 0.4s cubic-bezier(0.16, 0.84, 0.44, 1);
     }
 
     .hello-block.visible {
       opacity: 1;
+      transform: translateY(0) scale(1);
       pointer-events: auto;
-      transform: translateY(0);
     }
 
-    .hello-image {
-      width: 100%;
-      max-height: 260px;
-      object-fit: cover;
-      border-radius: 18px;
-      border: 3px solid var(--barbie-pink);
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+    .hello-image-wrapper {
+      position: relative;
+      display: inline-block;
       margin-bottom: 12px;
     }
 
-    .hello-text {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      color: var(--barbie-pink-dark);
-      text-shadow: 0 1px 0 #fff;
+    .hello-image {
+      width: min(100%, 320px);
+      max-height: 260px;
+      object-fit: cover;
+      border-radius: 22px;
+      border: 3px solid var(--barbie-pink-light);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
     }
 
+    .hello-image-glow {
+      position: absolute;
+      inset: -8px;
+      border-radius: 26px;
+      background: conic-gradient(
+        from 180deg,
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 111, 189, 0.7),
+        rgba(255, 255, 255, 0.5),
+        rgba(224, 37, 154, 0.6),
+        rgba(255, 255, 255, 0.5)
+      );
+      opacity: 0.55;
+      filter: blur(6px);
+      z-index: -1;
+    }
+
+    .hello-text {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--barbie-pink-dark);
+      text-shadow:
+        0 1px 0 #fff,
+        0 2px 4px rgba(225, 37, 134, 0.5);
+    }
+
+    /* Кнопка Barbie */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       border: none;
       border-radius: 999px;
-      padding: 18px 36px;
-      font-size: 1.3rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
+      padding: 18px 40px;
+      font-size: 1.4rem;
+      font-weight: 900;
       text-transform: uppercase;
+      letter-spacing: 0.12em;
       cursor: pointer;
-      background: linear-gradient(135deg, #ff6bbb, var(--barbie-pink));
+      background: linear-gradient(135deg, var(--barbie-pink-light), var(--barbie-pink-dark));
       color: var(--white);
       box-shadow:
-        0 12px 25px rgba(255, 79, 163, 0.45),
-        0 0 0 3px rgba(255, 255, 255, 0.8);
+        0 16px 30px rgba(225, 37, 134, 0.6),
+        0 0 0 3px rgba(255, 255, 255, 0.9);
       transition:
-        transform 0.1s ease,
-        box-shadow 0.1s ease,
-        filter 0.1s ease;
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        filter 0.12s ease;
+    }
+
+    .btn span.heart {
+      font-size: 1.2rem;
+      transform: translateY(-1px);
     }
 
     .btn:hover {
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.02);
       box-shadow:
-        0 16px 30px rgba(255, 79, 163, 0.55),
-        0 0 0 3px rgba(255, 255, 255, 0.9);
-      filter: brightness(1.05);
+        0 20px 36px rgba(225, 37, 134, 0.7),
+        0 0 0 3px rgba(255, 255, 255, 1);
+      filter: brightness(1.06);
     }
 
     .btn:active {
       transform: translateY(1px) scale(0.98);
       box-shadow:
-        0 6px 16px rgba(255, 79, 163, 0.4),
-        0 0 0 3px rgba(255, 255, 255, 0.9);
+        0 10px 20px rgba(225, 37, 134, 0.55),
+        0 0 0 3px rgba(255, 255, 255, 1);
     }
 
     .btn:focus-visible {
-      outline: 3px solid #ffb7dd;
+      outline: 3px solid #ffe0f7;
       outline-offset: 4px;
+    }
+
+    /* Падающие блёстки по всей странице */
+    .sparkle {
+      position: fixed;
+      top: -10vh;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 30%, #ffffff 0, #ffe3fb 35%, #ff8fd0 70%, #e12586 100%);
+      box-shadow:
+        0 0 8px rgba(255, 255, 255, 0.9),
+        0 0 14px rgba(255, 111, 189, 0.9);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+      animation-name: sparkle-fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes sparkle-fall {
+      0% {
+        transform: translate3d(0, -10vh, 0) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      40% {
+        transform: translate3d(10px, 40vh, 0) scale(1.05);
+        opacity: 0.9;
+      }
+      70% {
+        transform: translate3d(-8px, 80vh, 0) scale(0.9);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translate3d(4px, 110vh, 0) scale(0.8);
+        opacity: 0;
+      }
+    }
+
+    /* Чуть адаптации под мобилу */
+    @media (max-width: 480px) {
+      .app {
+        margin: 16px;
+        padding: 24px 18px 22px;
+      }
+
+      .title {
+        font-size: 1.8rem;
+      }
+
+      .btn {
+        width: 100%;
+        padding-inline: 18px;
+        font-size: 1.1rem;
+        letter-spacing: 0.1em;
+      }
+
+      .hello-text {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <!-- Блок с картинкой и текстом "Bonjour Jade" -->
+    <div class="title">Bonjour Sasha</div>
+    <div class="subtitle">Press the button for a little Barbie moment ✨</div>
+
+    <!-- Блок с фото + "Bonjour Jade" -->
     <div id="hello-block" class="hello-block">
-      <img
-        id="hello-image"
-        class="hello-image"
-        src=""
-        alt="Bonjour Jade"
-      />
+      <div class="hello-image-wrapper">
+        <div class="hello-image-glow"></div>
+        <img
+          id="hello-image"
+          class="hello-image"
+          src=""
+          alt="Bonjour Jade"
+        />
+      </div>
       <div class="hello-text">Bonjour Jade</div>
     </div>
 
-    <!-- Большая розовая кнопка -->
+    <!-- Большая Barbie-кнопка -->
     <button id="bonjour-btn" class="btn">
-      Bonjour Sasha
+      <span class="heart">💖</span>
+      <span>Bonjour Sasha</span>
+      <span class="heart">💖</span>
     </button>
   </div>
 
   <script>
-    // TODO: замени URL на свою картинку из GitHub (RAW-ссылка!)
-    // Например:
-    // const IMG_URL = "https://raw.githubusercontent.com/username/repo/branch/path/to/image.jpg";
-    const IMG_URL = "https://github.com/24tiy/bonjourjade/blob/main/camphoto_1401208270.JPG";
+    // 🔗 ЗДЕСЬ МЕНЯЕШЬ URL НА RAW-КАРТИНКУ ИЗ GITHUB
+    // Пример:
+    // const IMG_URL = "https://raw.githubusercontent.com/username/bonjour-sasha/main/jade.jpg";
+    const IMG_URL = "https://raw.githubusercontent.com/username/repo/main/image.jpg";
 
     const helloBlock = document.getElementById("hello-block");
     const helloImage = document.getElementById("hello-image");
     const btn = document.getElementById("bonjour-btn");
 
-    let hideTimeoutId = null;
-
     helloImage.src = IMG_URL;
 
+    let hideTimeoutId = null;
+
     btn.addEventListener("click", () => {
-      // Если уже есть таймер скрытия — сбрасываем его, чтобы блок не исчез внезапно
+      // Показать блок
+      helloBlock.classList.add("visible");
+
+      // Сбросить старый таймер, если уже был
       if (hideTimeoutId !== null) {
         clearTimeout(hideTimeoutId);
         hideTimeoutId = null;
       }
 
-      // Показать блок с картинкой и текстом
-      helloBlock.classList.add("visible");
-
-      // Запустить новый таймер на 5 секунд
+      // Спрятать через 5 секунд
       hideTimeoutId = setTimeout(() => {
         helloBlock.classList.remove("visible");
         hideTimeoutId = null;
       }, 5000);
     });
+
+    // ✨ Генерация падающих блёсток
+    const SPARKLE_COUNT = 80;
+
+    function createSparkles() {
+      for (let i = 0; i < SPARKLE_COUNT; i++) {
+        const s = document.createElement("span");
+        s.classList.add("sparkle");
+
+        // Случайная горизонтальная позиция
+        s.style.left = Math.random() * 100 + "vw";
+
+        // Длительность анимации от 6 до 14 секунд
+        const duration = 6 + Math.random() * 8;
+        s.style.animationDuration = duration + "s";
+
+        // Случайная задержка старта
+        const delay = Math.random() * 8;
+        s.style.animationDelay = delay + "s";
+
+        // Чуть разный размер
+        const size = 4 + Math.random() * 6;
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+
+        document.body.appendChild(s);
+      }
+    }
+
+    createSparkles();
   </script>
 </body>
 </html>
